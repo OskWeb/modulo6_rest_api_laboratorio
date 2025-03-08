@@ -1,8 +1,33 @@
 export interface CharacterEntityVm {
-  id: string;
-  picture: string;
+  id: number;
   name: string;
-  description: string;
-  rating: number;
-  address: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+  origin: Origin;
+  location: Location;
+  image: string;
+  episode: string[];
+  url: string;
+  created: string;
+}
+interface Origin {
+  name: string;
+  url: string;
+}
+interface Location {
+  name: string;
+  url: string;
+}
+
+export interface CharacterInfoEntityVm {
+  count: number;
+  pages: number;
+  next: string;
+  prev: string;
+}
+export interface CharactersCollectionDataEntityVm {
+  info: CharacterInfoEntityVm;
+  results: CharacterEntityVm[];
 }

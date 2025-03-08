@@ -15,7 +15,7 @@ app.use(logger());
 app.use('/api/*', cors());
 
 app.get('/api/character', async (context) => {
-  const response: CharacterListResponse = {
+  const response = {
     info: {
       count: db.characters.length,
     },

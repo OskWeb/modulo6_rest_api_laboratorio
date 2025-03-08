@@ -24,3 +24,17 @@ export const list = css`
     grid-template-columns: repeat(3, 1fr);
   }
 `;
+
+export const searchRickMorty = css`
+  width: 100%;
+`;
+
+export const searchContainer = css`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`;
+
+export const buttonsContainer = css`
+  display: flex;
+`;

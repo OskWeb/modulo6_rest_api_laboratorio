@@ -1,13 +1,28 @@
-import * as apiModel from './api/hotel-collection.api-model';
-import * as viewModel from './hotel-collection.vm';
+import * as apiModel from './api/character-collection.api-model';
+import * as viewModel from './character-collection.vm';
 
-export const mapFromApiToVm = (
-  hotel: apiModel.HotelEntityApi
-): viewModel.HotelEntityVm => ({
-  id: hotel.id,
-  picture: hotel.thumbNailUrl,
-  name: hotel.name,
-  description: hotel.shortDescription,
-  rating: hotel.hotelRating,
-  address: hotel.address1,
+export const mapFromApiToVmResults = (
+  character: apiModel.CharacterEntityApi
+): viewModel.CharacterEntityVm => ({
+  id: character.id,
+  name: character.name,
+  status: character.status,
+  species: character.species,
+  type: character.type,
+  gender: character.gender,
+  origin: character.origin,
+  location: character.location,
+  image: character.image,
+  episode: character.episode,
+  url: character.url,
+  created: character.created,
+});
+
+export const mapFromApiToVmInfo = (
+  info: apiModel.CharactersInfoEntityApi
+): viewModel.CharacterInfoEntityVm => ({
+  count: info.count,
+  pages: info.pages,
+  next: info.next,
+  prev: info.prev,
 });
