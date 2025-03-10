@@ -38,3 +38,9 @@ export const searchContainer = css`
 export const buttonsContainer = css`
   display: flex;
 `;
+
+export const charactersResults = css`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;

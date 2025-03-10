@@ -38,7 +38,6 @@ export const EpisodeCollectionComponent: React.FunctionComponent<Props> = (
                     <TableCell>Name</TableCell>
                     <TableCell align="right">Release Date</TableCell>
                     <TableCell align="right">Episode</TableCell>
-
                   </TableRow>
                 </TableHead>
                 <TableBody>

@@ -1,14 +1,8 @@
-import {
-  CharacterEntityApi,
-  CharactersCollectionData,
-} from './character-collection.api-model';
+import { CharactersCollectionData } from './character-collection.api-model';
 
 export const getCharacterCollection = async (
-  page: number,
-  setLoading
+  page: number
 ): Promise<CharactersCollectionData> => {
-  setLoading(true);
-
   try {
     const response = await fetch(
       `https://rickandmortyapi.com/api/character?page=${page}`
@@ -22,36 +16,20 @@ export const getCharacterCollection = async (
     }
   } catch (error) {
     console.log('Error fetching data:', error);
-  } finally {
-    setLoading(false);
   }
 };
 
-export const filterRickMortyCharacter = async (
-  page: number,
-  term: string,
-  setLoading
-) => {
-  setLoading(true);
-
+export const filterRickMortyCharacter = async (page: number, term: string) => {
   try {
     const response = await fetch(
       `https://rickandmortyapi.com/api/character/?page=${page}&name=${term}`
     );
-    const data = await response.json();
 
     if (response.ok) {
+      const data = await response.json();
       return data;
     }
   } catch (error) {
     console.log('Error fetching data:', error);
-  } finally {
-    setLoading(false);
   }
-};
-
-export const deleteCharacter = async (id: string): Promise<boolean> => {
-  // eliminar de la api
-  // characterCollection = characterCollection.filter((h) => h.id !== id);
-  return true;
 };

@@ -5,7 +5,6 @@ import {
   mapFromApiToVmInfo,
 } from './character-collection.mapper';
 import { mapToCollection } from '#common/mappers';
-import { CharacterEntityVm } from './character-collection.vm';
 import { CharactersCollectionDataEntityVm } from './character-collection.vm';
 
 export const useCharacterCollection = () => {
@@ -15,22 +14,32 @@ export const useCharacterCollection = () => {
   const loadCharacterCollection = (
     page: number,
     flagSearch: boolean,
-    term?: string,
-    setLoading?: any
+    term?: string
   ) => {
-    // if (term) {
     if (flagSearch) {
       console.log('entra con este termino: ' + flagSearch);
-      filterRickMortyCharacter(page, term, setLoading).then((data) => {
-        console.log(data.info);
-        setCharacterCollection({
-          info: mapFromApiToVmInfo(data.info),
-          results: mapToCollection(data.results, mapFromApiToVmResults),
-        });
+      filterRickMortyCharacter(page, term).then((data) => {
+        if (data) {
+          console.log(data.info);
+          setCharacterCollection({
+            info: mapFromApiToVmInfo(data.info),
+            results: mapToCollection(data.results, mapFromApiToVmResults),
+          });
+        } else {
+          setCharacterCollection({
+            info: {
+              count: 0,
+              pages: 0,
+              next: '',
+              prev: '',
+            },
+            results: [],
+          });
+        }
       });
     } else {
       console.log('entra con este termino: ' + flagSearch);
-      getCharacterCollection(page, setLoading).then((data) => {
+      getCharacterCollection(page).then((data) => {
         console.log(data.info);
         setCharacterCollection({
           info: mapFromApiToVmInfo(data.info),
@@ -38,7 +47,6 @@ export const useCharacterCollection = () => {
         });
       });
     }
-    // }
   };
 
   return { characterCollection, loadCharacterCollection };

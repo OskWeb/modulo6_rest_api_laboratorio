@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { linkRoutes } from '#core/router';
-import { deleteCharacter } from './api';
 import { CharacterCollectionComponent } from './character-collection.component';
 import { useContext } from 'react';
 import { SearchContextRickMorty } from '../../core/context/searchContextRickMorty';
@@ -13,7 +12,6 @@ export const CharacterCollectionContainer: React.FC = () => {
   const context = useContext(SearchContextRickMorty);
   const {
     term, modifyTerm,
-    loadingRickMorty, setLoadingRickMorty,
     currentPage, setCurrentPage,
     flagSearch, setFlagSearch,
   } = context;
@@ -26,7 +24,7 @@ export const CharacterCollectionContainer: React.FC = () => {
   const debounceValue = useDebounce(term, 1000);
 
   React.useEffect(() => {
-    loadCharacterCollection(currentPage, flagSearch, debounceValue, setLoadingRickMorty);
+    loadCharacterCollection(currentPage, flagSearch, debounceValue);
 
   }, []);
 
@@ -34,17 +32,16 @@ export const CharacterCollectionContainer: React.FC = () => {
     if (characterCollection !== null) {
       setCount(characterCollection.info.pages);
     }
-
   }, [characterCollection, debounceValue])
 
   React.useEffect(() => {
-    let flagSearch;
+    let flagSearch = false;
     if (debounceValue.length > 0) {
       flagSearch = true;
     } else {
       flagSearch = false;
     }
-    loadCharacterCollection(currentPage, flagSearch, debounceValue, setLoadingRickMorty);
+    loadCharacterCollection(currentPage, flagSearch, debounceValue);
     setFlagSearch(flagSearch);
 
   }, [debounceValue, flagSearch])
@@ -57,21 +54,16 @@ export const CharacterCollectionContainer: React.FC = () => {
     navigate(linkRoutes.editCharacter(id));
   };
 
-  const handleDelete = async (id: string) => {
-    await deleteCharacter(id);
-    // loadCharacterCollection();
-  };
-
   const handleChangeGeneral = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
     setFlagSearch(false);
-    loadCharacterCollection(value, false, debounceValue, setLoadingRickMorty);
+    loadCharacterCollection(value, false, debounceValue);
   }
 
   const handleChangeFilter = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
     setFlagSearch(true);
-    loadCharacterCollection(value, true, debounceValue, setLoadingRickMorty);
+    loadCharacterCollection(value, true, debounceValue);
   }
 
   const handleReset = () => {
@@ -86,13 +78,11 @@ export const CharacterCollectionContainer: React.FC = () => {
         characterCollection={characterCollection.results}
         onCreateCharacter={handleCreateCharacter}
         onEdit={handleEdit}
-        onDelete={handleDelete}
         count={count}
         page={currentPage}
         handleChangeFilter={handleChangeFilter}
         handleChangeGeneral={handleChangeGeneral}
         onReset={handleReset}
-        loading={loadingRickMorty}
         term={term}
         flagSearch={flagSearch}
       />

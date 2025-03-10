@@ -1,5 +1,4 @@
 import { Character } from './character.api-model';
-import { Lookup } from '#common/models';
 
 export const getCharacter = async (id: string): Promise<Character> => {
   //cambiar por API
@@ -11,8 +10,4 @@ export const getCharacter = async (id: string): Promise<Character> => {
   } else {
     throw Error(response.statusText);
   }
-};
-
-export const saveCharacter = async (character: Character): Promise<boolean> => {
-  return true;
 };
